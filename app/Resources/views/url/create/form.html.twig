@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shorten your url{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-offset-5">
+			<h1>Shorten your url!</h1>
+		</div>
+	</div>
+	<form role="form" class="form-horizontal"
+	   	  ng-controller="urlFormCtrl" ng-submit="shorten()">
+		<div class="form-group">
+			<label for="basic-url" class="control-label col-md-2 col-md-offset-1">Your url</label>
+			<div class="col-md-7">
+				<input type="text" placeholder="http://example.com" class="form-control" id="basic-url"
+				       ng-model="basicUrl" maxlength="1000" required>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-3">
+				<div class="checkbox-inline">
+					<label>
+						<input type="checkbox" ng-model="isDesireAlias">
+						I know what url alias I desire
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group" ng-show="isDesireAlias">
+			<label for="desired-url" class="control-label col-md-2 col-md-offset-1">Desired short url</label>
+			<div class="col-md-4">
+				<input type="text" placeholder="alias" class="form-control" id="desired-url"
+				       ng-model="urlAlias" ng-disabled="!isDesireAlias" ng-required="isDesireAlias"
+				       maxlength="16">
+			</div>
+			<div class="col-md-4">
+				<h5>Your new url would be: <i>{{ url('main_page') }}{{ '{{ urlAlias }}' }}</i></h5>
+			</div>
+		</div>
+
+		<div class="form-group has-error">
+			<div class="alert alert-danger col-md-7 col-md-offset-3"
+				   ng-repeat="validationError in validationErrors">
+				{{ '{{ validationError }}' }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-5">
+				<button type="submit" class="btn btn-info col-md-4">Shorten!</button>
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/shortenerModule/controllers/urlFormCtrl.js') }}">
+	</script>
+{% endblock %}
