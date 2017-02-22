@@ -78,7 +78,7 @@ class UrlController extends Controller
     {
         $urlEntity = $this->getDoctrine()->getRepository('AppBundle:Url')->findOneByUrlAlias($urlAlias);
         if (empty($urlEntity)) {
-            throw new $this->createNotFoundException();
+            throw $this->createNotFoundException();
         }
         $renderData = [
             'url_alias' => $urlEntity->getUrlAlias(),

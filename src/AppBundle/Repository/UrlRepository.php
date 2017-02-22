@@ -33,6 +33,9 @@ class UrlRepository extends EntityRepository
      */
 	public function shorten($basicUrl, $desiredShortUrl = null)
 	{
+		if (is_array($basicUrl)) {
+			$basicUrl = array_shift($basicUrl);
+		}
 		if (!empty($basicUrl) && stripos($basicUrl, 'http://') !== 0
 			&& stripos($basicUrl, 'https://') !== 0) {
 			$basicUrl = 'http://' . $basicUrl;
@@ -44,6 +47,9 @@ class UrlRepository extends EntityRepository
 
 			$urlEntity->setBasicUrl($basicUrl);
 
+			if (is_array($desiredShortUrl)) {
+				$desiredShortUrl = array_shift($desiredShortUrl);
+			}
 			$alias = $desiredShortUrl;
 			if (empty($alias)) {
 				$alias = $this->_generateUniqueUrlAlias();

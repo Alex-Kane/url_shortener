@@ -17,6 +17,8 @@ To create url externally, you may send _**POST**_ request to _**/shorten**_ url 
 | basic_url | Valid url what you want to shorten | true     |
 | url_alias | Desired alias                      | false    |
 
+Above parameters must be strings. If arrays will given, only first value will be used.
+
 You will get response with _**JSON**_ data:
 
 | Parameter   | Description       | Type                                    |
